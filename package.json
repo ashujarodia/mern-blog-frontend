@@ -1,6 +1,6 @@
 {
 	"name": "frontend",
-	"homepage": "https://ashujarodia.github.io",
+	"homepage": "https://ashujarodia.github.io/mern-blog-frontend",
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
