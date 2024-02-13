@@ -1,14 +1,19 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
+import { AuthContext } from '../context/AuthContext';
+import { Navigate } from 'react-router-dom';
 
 const NewBlog = () => {
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
+	const [loading, setLoading] = useState(false);
+
+	const { isAuthenticated } = useContext(AuthContext);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
+		setLoading(true);
 		try {
 			const { data } = await axios.post(
 				`${import.meta.env.VITE_SERVER}/blogs/newBlog`,
@@ -23,11 +28,17 @@ const NewBlog = () => {
 			toast.success(data.message);
 			setTitle('');
 			setContent('');
+			setLoading(false);
 		} catch (error) {
 			toast.error(error.response.data.message);
 			console.error(error);
+			setLoading(false);
 		}
 	};
+
+	if (!isAuthenticated) {
+		return <Navigate to={'/login'} />;
+	}
 
 	return (
 		<div className='mt-8 mx-4'>
@@ -37,12 +48,6 @@ const NewBlog = () => {
 				className='max-w-md mx-auto mt-6'
 			>
 				<div className='mb-4'>
-					<label
-						htmlFor='caption'
-						className='block text-gray-200 font-semibold'
-					>
-						Title -
-					</label>
 					<input
 						type='text'
 						id='title'
@@ -50,30 +55,26 @@ const NewBlog = () => {
 						onChange={(e) => setTitle(e.target.value)}
 						className='w-full mt-1 p-2 border bg-transparent border-gray-300 rounded-md focus:outline-none focus:border-blue-500'
 						required
+						placeholder='Add title here...'
 					/>
 				</div>
 				<div className='mb-4'>
-					<label
-						htmlFor='image'
-						className='block text-gray-200 font-semibold'
-					>
-						Content -
-					</label>
-					<input
-						type='text'
+					<textarea
 						id='title'
 						value={content}
 						onChange={(e) => setContent(e.target.value)}
 						className='w-full mt-1 p-2 border bg-transparent border-gray-300 rounded-md focus:outline-none focus:border-blue-500'
 						required
+						placeholder='Add content here...'
 					/>
 				</div>
 				<div className='flex w-full'>
 					<button
 						type='submit'
-						className='w-full mt-7 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600'
+						className='w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 active:scale-95 duration-300'
+						disabled={loading}
 					>
-						Post
+						{loading ? 'Posting ...' : 'Post'}
 					</button>
 				</div>
 			</form>

@@ -40,7 +40,7 @@ const Profile = () => {
 
 	return (
 		<div className='container mx-auto py-8'>
-			<div className='border-b mb-4'>
+			<div className='border-b border-b-gray-700 mb-4'>
 				<div className='p-4 flex justify-between'>
 					<div>
 						<h2 className='text-2xl font-semibold mb-2'>Hello {user.name}!</h2>
