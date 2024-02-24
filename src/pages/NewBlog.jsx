@@ -41,7 +41,7 @@ const NewBlog = () => {
 	}
 
 	return (
-		<div className='mt-8 mx-4'>
+		<div className='my-8 mx-4 min-h-[70vh]'>
 			<h1 className='text-2xl font-bold mb-4 text-center'>New Blog</h1>
 			<form
 				onSubmit={handleSubmit}
@@ -53,7 +53,7 @@ const NewBlog = () => {
 						id='title'
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
-						className='w-full mt-1 p-2 border bg-transparent border-gray-300 rounded-md focus:outline-none focus:border-blue-500'
+						className='w-full mt-1 p-2 border bg-transparent border-gray-300 rounded-md focus:outline-none focus:border-green-500'
 						required
 						placeholder='Add title here...'
 					/>
@@ -63,7 +63,7 @@ const NewBlog = () => {
 						id='title'
 						value={content}
 						onChange={(e) => setContent(e.target.value)}
-						className='w-full mt-1 p-2 border bg-transparent border-gray-300 rounded-md focus:outline-none focus:border-blue-500'
+						className='w-full mt-1 p-2 border bg-transparent border-gray-300 rounded-md focus:outline-none focus:border-green-500'
 						required
 						placeholder='Add content here...'
 					/>
@@ -71,7 +71,7 @@ const NewBlog = () => {
 				<div className='flex w-full'>
 					<button
 						type='submit'
-						className='w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 active:scale-95 duration-300'
+						className='w-full py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600 active:scale-95 duration-300'
 						disabled={loading}
 					>
 						{loading ? 'Posting ...' : 'Post'}

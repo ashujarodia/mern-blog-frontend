@@ -4,38 +4,50 @@ import toast from 'react-hot-toast';
 import { AuthContext } from '../context/AuthContext';
 import { Link, Navigate } from 'react-router-dom';
 import Blog from '../components/Blog';
+import Loader from '../components/Loader';
 
 const Profile = () => {
 	const { user, setIsAuthenticated, isAuthenticated } = useContext(AuthContext);
 	const [blogs, setBlogs] = useState([]);
+	const [loading, setLoading] = useState(false);
 
 	const handleLogout = async () => {
+		setLoading(true);
 		try {
 			const { data } = await axios.get(`${import.meta.env.VITE_SERVER}/users/logout`, { withCredentials: true });
 			toast.success(data.message);
 			setIsAuthenticated(false);
+
+			setLoading(false);
 		} catch (error) {
 			toast.error(error.response?.data?.message || 'Error while logging out');
-			console.error('Error while logout:', error);
+
 			setIsAuthenticated(true);
+			setLoading(false);
 		}
 	};
 	const fetchBlogs = async () => {
+		setLoading(true);
 		try {
 			const { data } = await axios.get(`${import.meta.env.VITE_SERVER}/blogs/getMyBlogs`, { withCredentials: true });
-			setBlogs(data.blogs);
-			setBlogs(data.blogs);
+			setBlogs(data.blogs.reverse());
+			setLoading(false);
 		} catch (error) {
 			toast.error(error.response?.data?.message);
-			console.error(error);
+
+			setLoading(false);
 		}
 	};
 
 	useEffect(() => {
 		fetchBlogs();
 	}, []);
+
 	if (!isAuthenticated) {
 		return <Navigate to={'/login'} />;
+	}
+	if (loading) {
+		return <Loader />;
 	}
 
 	return (
@@ -57,7 +69,7 @@ const Profile = () => {
 				</div>
 			</div>
 			<h2 className='text-center font-semibold text-2xl mt-8'>Your Blogs</h2>
-			<div className='grid grid-cols-1 md:grid-cols-2  gap-6 mx-2 mt-4'>
+			<div className='mx-4 my-8 grid grid-cols-1 md:grid-cols-2 gap-8'>
 				{blogs.length > 0 &&
 					blogs?.map((blog) => (
 						<Blog

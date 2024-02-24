@@ -3,9 +3,9 @@ import { MdAdd, MdPerson } from 'react-icons/md';
 
 const Navbar = () => {
 	return (
-		<nav className='border-b border-b-gray-600 p-4 z-50'>
-			<div className='container mx-auto flex justify-between items-center'>
-				<div className='flex items-center flex-shrink-0 text-white mr-6'>
+		<nav className='py-3 z-50 bg-gray-100'>
+			<div className='mx-4 flex justify-between items-center'>
+				<div className='flex items-center flex-shrink-0  mr-6'>
 					<Link
 						className='font-semibold text-xl tracking-tight uppercase active:scale-90 duration-300'
 						to={'/'}
@@ -16,15 +16,21 @@ const Navbar = () => {
 				<div className='flex justify-center items-center space-x-4'>
 					<Link
 						to={'/newBlog'}
-						className=' hover:bg-red-500 p-2 rounded-full active:scale-75 bg-gray-900 duration-300'
+						className=' hover:bg-gray-300 p-1 rounded-full active:scale-75 bg-gray-200 duration-300'
 					>
-						<MdAdd size={24} />
+						<MdAdd
+							size={24}
+							color='green'
+						/>
 					</Link>
 					<Link
-						className=' hover:bg-red-500 p-2 rounded-full active:scale-75 bg-gray-900 duration-300'
+						className='hover:bg-gray-300 p-1 rounded-full active:scale-75 bg-gray-200 duration-300'
 						to={'/profile'}
 					>
-						<MdPerson size={24} />
+						<MdPerson
+							size={24}
+							color='green'
+						/>
 					</Link>
 				</div>
 			</div>

@@ -10,9 +10,11 @@ import { AuthContext } from './context/AuthContext';
 import Profile from './pages/Profile';
 import NewBlog from './pages/NewBlog';
 import UserProfile from './pages/UserProfile';
+import Footer from './components/Footer';
 
 const App = () => {
 	const { setUser, setIsAuthenticated, setLoading } = useContext(AuthContext);
+
 	useEffect(() => {
 		setLoading(true);
 		axios.get(`${import.meta.env.VITE_SERVER}/users/me`, { withCredentials: true })
@@ -28,6 +30,7 @@ const App = () => {
 				setLoading(false);
 			});
 	}, []);
+
 	return (
 		<Router>
 			<Toaster />
@@ -58,7 +61,7 @@ const App = () => {
 					element={<UserProfile />}
 				/>
 			</Routes>
-			{/* <Footer /> */}
+			<Footer />
 		</Router>
 	);
 };
